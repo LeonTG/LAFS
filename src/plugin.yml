@@ -1,0 +1,9 @@
+name: LAFS
+main: com.leontg77.lafs.Main
+version: 1.0
+author: LeonTG77
+description: Plugin for the UHC scenario love at first sight
+
+commands:
+  lafs:
+    description: Disable/Enable the scenario.
