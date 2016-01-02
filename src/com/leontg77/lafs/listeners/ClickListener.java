@@ -47,6 +47,12 @@ public class ClickListener implements Listener {
 		}
 	}
 	
+	/**
+	 * Handle the click for solos.
+	 * 
+	 * @param player The player clicking.
+	 * @param clicked The clicked player.
+	 */
 	public void handleSolos(Player player, Player clicked) {
 		if (board.getPlayerTeam(player) != null) {
 			player.sendMessage(ChatColor.RED + "You are already on a team");
@@ -78,6 +84,12 @@ public class ClickListener implements Listener {
 		Utils.broadcast(Main.PREFIX + ChatColor.GREEN + clicked.getName() + " §7and§a " + player.getName() + " §7has found each other and are now on a team.");
 	}
 	
+	/**
+	 * Handle the click for solos.
+	 * 
+	 * @param player The player clicking.
+	 * @param clicked The clicked player.
+	 */
 	public void handleTeams(Player player, Player clicked) {
 		if (board.getPlayerTeam(player) == null) {
 			player.sendMessage(ChatColor.RED + "You are not on a team");
@@ -92,8 +104,18 @@ public class ClickListener implements Listener {
 		Team team1 = board.getPlayerTeam(clicked);
 		Team team2 = board.getPlayerTeam(player);
 		
+		if (team2.getSize() != Main.getInstance().getSize()) {
+			player.sendMessage(ChatColor.RED + "Your teamsize isnt the same as set in the config.");
+			return;
+		}
+		
 		if (team1 == team2) {
 			player.sendMessage(ChatColor.RED + "That player is already on your team.");
+			return;
+		}
+		
+		if (team1.getSize() != team2.getSize()) {
+			player.sendMessage(ChatColor.RED + "The teamsizes between your and their team doesn't match");
 			return;
 		}
 		
