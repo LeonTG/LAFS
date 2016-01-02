@@ -43,6 +43,11 @@ public class Main extends JavaPlugin {
 		plugin = this;
 		
 		getCommand("lafs").setExecutor(new LAFSCommand());
+		
+		// setup the default config.
+		getConfig().options().copyDefaults(true);
+		getConfig().addDefault("teamsizeToCombine", 1);
+		saveConfig();
 	}
 	
 	/**
