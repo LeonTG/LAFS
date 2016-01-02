@@ -15,7 +15,7 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	
 	public static final String NO_PERM_MSG = "§cYou don't have permission.";
-	public static final String PREFIX = "§c§lKillReveal §8» §7";
+	public static final String PREFIX = "§d§lLAFS §8» §7";
 	
 	/**
 	 * Get the instance of the class.
