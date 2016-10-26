@@ -69,7 +69,7 @@ public class LAFSCommand implements CommandExecutor, TabCompleter {
 
         if (args[0].equalsIgnoreCase("info")) {
             sender.sendMessage(Main.PREFIX + "Plugin creator: §aLeonTG77");
-            sender.sendMessage(Main.PREFIX + "Version: §a" + plugin.getDescription().getVersion());
+            sender.sendMessage(Main.PREFIX + "Version: §av" + plugin.getDescription().getVersion());
             sender.sendMessage(Main.PREFIX + "Description:");
             sender.sendMessage("§8» §f" + plugin.getDescription().getDescription());
             return true;
