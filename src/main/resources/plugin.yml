@@ -1,9 +1,9 @@
-name: LAFS
-main: com.leontg77.lafs.Main
-version: 1.1.1
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}.Main
+version: ${project.version}
 author: LeonTG77
 description: LAFS stands for Love at first sight and is a UHC Gamemode, In this gamemode you right click the first person you see to team with them, if your teammate dies you cannot re-team and you cannot ignore the first person you see and run away
 
 commands:
   lafs:
-    description: Disable/Enable the scenario.
+    description: View info, enable or disable the scenario.
