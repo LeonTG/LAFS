@@ -10,7 +10,7 @@
     <name>LAFS</name>
 
     <properties>
-        <project.build.sourceEncoding>UTF-16</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jar.finalName>${project.name}</jar.finalName>
     </properties>
 
