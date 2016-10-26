@@ -27,6 +27,7 @@
 
 package com.leontg77.lafs.listeners;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -39,6 +40,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import com.leontg77.lafs.Main;
+
+import java.util.*;
 
 /**
  * Click listener class.
@@ -91,13 +94,20 @@ public class ClickListener implements Listener {
         }
 
         if (board.getPlayerTeam(clicked) != null) {
-            player.sendMessage(ChatColor.RED + "That player is already on a team.");
+            if (plugin.isAnonymous()) {
+                player.sendMessage(ChatColor.RED + "That player is already on a team.");
+            } else {
+                player.sendMessage(ChatColor.RED + "'" + clicked.getName() + "' is already on a team.");
+            }
             return;
         }
 
         Team teamToUse = null;
 
-        for (Team team : board.getTeams()) {
+        List<Team> teams = Lists.newArrayList(board.getTeams());
+        Collections.sort(teams, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+
+        for (Team team : teams) {
             if (team.getSize() == 0) {
                 teamToUse = team;
                 break;
@@ -112,7 +122,7 @@ public class ClickListener implements Listener {
         if (plugin.isAnonymous()) {
             plugin.broadcast(Main.PREFIX + "Two players have found each other and they are now on a team together!");
         } else {
-            plugin.broadcast(Main.PREFIX + ChatColor.GREEN + player.getName() + " §7 has found §a " + clicked.getName() + " §7and they are now on a team together!");
+            plugin.broadcast(Main.PREFIX + ChatColor.GREEN + player.getName() + "§7 has found §a" + clicked.getName() + " §7and they are now on a team together!");
         }
 
         teamToUse.addPlayer(player);
@@ -132,7 +142,11 @@ public class ClickListener implements Listener {
         }
 
         if (board.getPlayerTeam(clicked) == null) {
-            player.sendMessage(ChatColor.RED + "That player is not on a team.");
+            if (plugin.isAnonymous()) {
+                player.sendMessage(ChatColor.RED + "That player is not on a team.");
+            } else {
+                player.sendMessage(ChatColor.RED + "'" + clicked.getName() + "' is not on a team.");
+            }
             return;
         }
 
@@ -145,7 +159,11 @@ public class ClickListener implements Listener {
         }
 
         if (clickedTeam.equals(playerTeam)) {
-            player.sendMessage(ChatColor.RED + "That player is already on your team.");
+            if (plugin.isAnonymous()) {
+                player.sendMessage(ChatColor.RED + "That player is already on your team.");
+            } else {
+                player.sendMessage(ChatColor.RED + "'" + clicked.getName() + "' is already on your team.");
+            }
             return;
         }
 
@@ -157,7 +175,7 @@ public class ClickListener implements Listener {
         if (plugin.isAnonymous()) {
             plugin.broadcast(Main.PREFIX + "Two teams have found each other and their teams have been combined!");
         } else {
-            plugin.broadcast(Main.PREFIX + "Team §a" + teamString(playerTeam) + " §7 has found §a " + teamString(clickedTeam) + " §7and their teams have been combined!");
+            plugin.broadcast(Main.PREFIX + "Team §a" + teamString(playerTeam) + "§7 has found §a" + teamString(clickedTeam) + " §7and their teams have been combined!");
         }
 
         for (OfflinePlayer players : clickedTeam.getPlayers()) {

@@ -27,22 +27,27 @@
 
 package com.leontg77.lafs.commands;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.event.HandlerList;
 
 import com.leontg77.lafs.Main;
 import com.leontg77.lafs.listeners.ClickListener;
+import org.bukkit.util.StringUtil;
+
+import java.util.List;
 
 /**
  * LAFS command class.
  *
  * @author LeonTG77
  */
-public class LAFSCommand implements CommandExecutor {
+public class LAFSCommand implements CommandExecutor, TabCompleter {
     private static final String PERMISSION = "lafs.manage";
 
     private final ClickListener listener;
@@ -136,7 +141,7 @@ public class LAFSCommand implements CommandExecutor {
                 return true;
             }
 
-            plugin.broadcast(Main.PREFIX + "The teamsize is now a" + size + "7.");
+            plugin.broadcast(Main.PREFIX + "LAFS will now make is now §aTo" + size + "'s§7 into §aTo" + (size * 2) + "'s.");
             plugin.setSize(size);
             return true;
         }
@@ -153,10 +158,10 @@ public class LAFSCommand implements CommandExecutor {
             }
 
             if (plugin.isAnonymous()) {
-                sender.sendMessage(Main.PREFIX + "Anonymous LAFS is now disabled.");
+                sender.sendMessage(Main.PREFIX + "LAFS will now display who got on a team.");
                 plugin.setAnonymous(false);
             } else {
-                sender.sendMessage(Main.PREFIX + "Anonymous LAFS is now enabled.");
+                sender.sendMessage(Main.PREFIX + "LAFS will no longer display who got on a team.");
                 plugin.setAnonymous(true);
             }
             return true;
@@ -164,5 +169,25 @@ public class LAFSCommand implements CommandExecutor {
 
         sender.sendMessage(Main.PREFIX + "Usage: /lafs <enable|disable|teamsize|anonymous> [teamsize]");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length != 1) {
+            return Lists.newArrayList();
+        }
+
+        List<String> list = Lists.newArrayList();
+
+        list.add("info");
+
+        if (sender.hasPermission(PERMISSION)) {
+            list.add("enable");
+            list.add("disable");
+            list.add("teamsize");
+            list.add("anonymous");
+        }
+
+        return StringUtil.copyPartialMatches(args[args.length - 1], list, Lists.newArrayList());
     }
 }
