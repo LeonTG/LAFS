@@ -20,7 +20,7 @@ ___
 
 **Permissions:**
 
-`lafs.manage` - *Permission to use* `/lafs` *(*`/lafs info` *does not have any permissions.*
+`lafs.manage` - *Permission to use* `/lafs`*. (*`/lafs info` *does not have any permissions)*
 ___
 
 [**Download**](https://github.com/LeonTG77/LAFS/releases)
